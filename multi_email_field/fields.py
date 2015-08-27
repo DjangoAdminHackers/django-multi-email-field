@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from multi_email_field.forms import MultiEmailField as MultiEmailFormField
@@ -31,8 +32,7 @@ class MultiEmailField(models.Field):
     def get_internal_type(self):
         return 'TextField'
 
-try:
+
+if 'south' in settings.INSTALLED_APPS:
     from south.modelsinspector import add_introspection_rules
     add_introspection_rules([], ["multi_email_field.fields.MultiEmailField"])
-except ImportError:
-    pass
